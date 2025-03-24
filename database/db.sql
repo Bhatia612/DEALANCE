@@ -3,11 +3,13 @@ USE dealance_db;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    role VARCHAR(20) NOT NULL CHECK (role IN ('freelancer', 'employer'))
+    role ENUM('admin', 'employer', 'freelancer') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 CREATE TABLE jobs (
     job_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,3 +31,6 @@ CREATE TABLE applications (
     FOREIGN KEY (job_id) REFERENCES jobs(job_id),
     FOREIGN KEY (freelancer_id) REFERENCES users(user_id)
 );
+
+INSERT INTO users (username, email, password, role)
+VALUES ('admin', 'admin@example.com', 'hashed_password_here', 'admin');
