@@ -1,5 +1,4 @@
 <?php
-
 include '../database/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
@@ -11,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $sql = "INSERT INTO users (username, password, email, role) VALUES ('$username', '$password', '$email', '$role')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Registration successful";
+        echo "Registration successful. <a href='login.php'>Login here</a>";
     } else {
         echo "Error: " . $conn->error;
     }
@@ -36,5 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         </select><br>
         <button type="submit" name="register">Register</button>
     </form>
+    <p>Already have an account? <a href="login.php">Login here</a></p>
 </body>
 </html>
