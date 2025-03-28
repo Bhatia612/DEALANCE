@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_job'])) {
     if (mysqli_num_rows($result) > 0) {
         echo "<p>You have already applied for this job.</p>";
     } else {
-        // Insert application into the database
+        
         $insert_sql = "INSERT INTO applications (job_id, freelancer_id, status) VALUES ($job_id, $freelancer_id, 'pending')";
         if (mysqli_query($conn, $insert_sql)) {
             echo "<p>Application submitted successfully!</p>";

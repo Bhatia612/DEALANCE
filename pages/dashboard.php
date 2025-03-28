@@ -13,7 +13,7 @@ $role = $_SESSION['role'];
 
 
 if ($role === 'freelancer') {
-    // Fetch jobs applied by freelancer
+    
     $sql = "SELECT j.job_id, j.title, j.description, a.status 
             FROM jobs j 
             JOIN applications a ON j.job_id = a.job_id 
@@ -23,7 +23,7 @@ if ($role === 'freelancer') {
 
 
 if ($role === 'employer') {
-    // Fetch jobs posted by employer
+    
     $sql = "SELECT job_id, title, description, status 
             FROM jobs 
             WHERE employer_id = $user_id";
