@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             if ($row['role'] === 'employer') {
                 echo '<br><a href="post_job.php">Post a Job</a>';
             } elseif ($row['role'] === 'freelancer') {
-                echo '<br><a href="apply-job.php">View Available Jobs</a>';
+                echo '<br><a href="apply_job.php">View Available Jobs</a>';
             }
         } else {
             echo "Invalid password";
