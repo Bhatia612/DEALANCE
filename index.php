@@ -20,7 +20,7 @@
     }
 
     body {
-      background: black;
+      background:rgb(1, 1, 70);
       display: flex;
       justify-content: center;
       align-items: center;
