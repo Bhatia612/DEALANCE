@@ -1,6 +1,5 @@
 
 <?php
-session_start();
 $username = $_SESSION['role'] ?? 'Guest';
 ?>
 
@@ -76,8 +75,9 @@ $username = $_SESSION['role'] ?? 'Guest';
   <div class="dropdown">
     <span><?php echo ucfirst($username); ?> ▼</span>
     <div class="dropdown-content">
+      <a href="../index.php">Home</a>
       <a href="_job-card.php">Profile</a>
-      <a href="pages/login.php">Logout</a>
+      <a href="../pages/login.php">Logout</a>
     </div>
   </div>
 </div>

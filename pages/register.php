@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
   </style>
 </head>
 <body>
-  <?php include 'components/_nav.php'; ?>
+  <?php include '../components/_nav.php'; ?>
   <canvas id="background-canvas"></canvas>
 
   <div class="glass-card">
