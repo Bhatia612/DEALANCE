@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         echo "Error: " . $conn->error;
     }
     header("Location: login.php");
+    exit;
 }
 ?>
 
