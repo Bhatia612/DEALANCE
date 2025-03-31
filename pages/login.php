@@ -16,11 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['role'] = $row['role'];
             echo "Login successful. Welcome " . $row['role'];
-            if ($row['role'] === 'employer') {
-                echo '<br><a href="post_job.php">Post a Job</a>';
-            } elseif ($row['role'] === 'freelancer') {
-                echo '<br><a href="apply_job.php">View Available Jobs</a>';
-            }
+            header("Location: dashboard.php");
         } else {
             echo "Invalid password";
         }
@@ -113,12 +109,11 @@ $conn->close();
   </style>
 </head>
 <body>
-  <?php include '../components/_nav.php'; ?>
   <canvas id="background-canvas"></canvas>
 
   <div class="glass-card">
     <h2 class="text-center mb-4">Welcome Back!</h2>
-    <form method="post" action="./dashboard.php">
+    <form method="post" action="#">
       <div class="mb-3">
         <label for="email" class="form-label">Email Address</label>
         <input type="email" class="form-control" id="email" name="email" required />

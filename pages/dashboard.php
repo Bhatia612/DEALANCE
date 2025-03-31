@@ -4,6 +4,8 @@ include '../database/db.php';
 
 session_start();
 
+include "../components/_nav.php";
+
 if (!isset($_SESSION['user_id'])) {
     die("Access denied. You need to log in first.");
 }
@@ -13,7 +15,6 @@ $role = $_SESSION['role'];
 
 
 if ($role === 'freelancer') {
-    
     $sql = "SELECT j.job_id, j.title, j.description, a.status 
             FROM jobs j 
             JOIN applications a ON j.job_id = a.job_id 
@@ -23,7 +24,6 @@ if ($role === 'freelancer') {
 
 
 if ($role === 'employer') {
-    
     $sql = "SELECT job_id, title, description, status 
             FROM jobs 
             WHERE employer_id = $user_id";
