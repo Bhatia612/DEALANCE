@@ -75,8 +75,6 @@
 
 <body>
     
-    <?php include 'components/_nav.php'; ?>
-
     <canvas id="background-canvas"></canvas>
 
     <div class="content">

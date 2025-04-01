@@ -1,84 +1,87 @@
-
 <?php
-$username = $_SESSION['role'] ?? 'Guest';
+
+$userRole = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+
+$navLinks = [
+  'admin' => [
+    'Home' => '../pages/homepage.php',
+    'Dashboard' => '../pages/admin_dashboard.php',
+    'Manage Users' => '../manage_users.php',
+    'Manage Applications' => '../pages/manage_application.php',
+    'Logout' => '../pages/logout.php',
+  ],
+  'employer' => [
+    'Home' => '../pages/homepage.php',
+    'Dashboard' => '../pages/admin_dashboard.php',
+    'Post Job' => '../pages/post_job.php',
+    'Logout' => '../pages/logout.php',
+  ],
+  'freelancer' => [
+    'Home' => '../pages/homepage.php',
+    'Dashboard' => '../pages/admin_dashboard.php',
+    'Find Jobs' => '../pages/browse_jobs.php',
+    'Logout' => '../pages/logout.php',
+  ]
+];
+
+$currentLinks = isset($navLinks[$userRole]) ? $navLinks[$userRole] : [];
 ?>
 
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+<title>Header Component</title>
 <style>
-  .navbar {
-  position: fixed;       
-  top: 0;
-  left: 0;
-  width: 100%;    
-  background-color: #1e1e2f;
-  padding: 15px 30px;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Segoe UI', sans-serif;
-  z-index: 1000;     
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: rgb(10, 10, 80);
+    color: white;
+  }
 
-  .navbar a {
+  .header {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 15px 40px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #00bcd4;
+  }
+
+  nav a {
     color: white;
     text-decoration: none;
     margin-left: 20px;
-    font-weight: 500;
-  }
-
-  .navbar a:hover {
-    text-decoration: underline;
-  }
-
-  .navbar .left {
-    font-size: 20px;
     font-weight: bold;
+    transition: color 0.3s ease;
   }
 
-  .navbar .dropdown {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  .navbar .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #2a2a3f;
-    min-width: 160px;
-    z-index: 1;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .navbar .dropdown-content a {
-    display: block;
-    padding: 12px 16px;
-    text-decoration: none;
-    color: white;
-    font-weight: normal;
-  }
-
-  .navbar .dropdown-content a:hover {
-    background-color: #383851;
-  }
-
-  .navbar .dropdown:hover .dropdown-content {
-    display: block;
+  nav a:hover {
+    color: #00e5ff;
   }
 </style>
 
-<div class="navbar">
-  <div class="left">DEALANCE</div>
-  <div class="dropdown">
-    <span><?php echo ucfirst($username); ?> ▼</span>
-    <div class="dropdown-content">
-      <a href="../index.php">Home</a>
-      <a href="_job-card.php">Profile</a>
-      <a href="../pages/login.php">Logout</a>
-    </div>
-  </div>
-</div>
-<!-- <?php include 'components/_nav.php'; ?> -->
+<header class="header">
+  <div class="logo">Dealance</div>
+  <nav>
+    <?php if (!empty($currentLinks)): ?>
+      <?php foreach ($currentLinks as $linkText => $linkUrl): ?>
+        <a href="<?= $linkUrl ?>"><?= $linkText ?></a>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </nav>
+</header>

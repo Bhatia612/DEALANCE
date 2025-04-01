@@ -4,6 +4,7 @@ include '../database/db.php';
 
 session_start();
 
+include "../components/_nav.php";
 
 if (!isset($_SESSION['user_id'])) {
     die("Access denied. You need to log in first.");
@@ -44,19 +45,16 @@ if ($role === 'employer') {
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Dashboard - Job Portal</title>
     <style>
-        .job-card,
-        .application-card {
+        .job-card, .application-card {
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 16px;
             background-color: #f9f9f9;
         }
-
         button {
             background-color: #4CAF50;
             color: white;
@@ -65,68 +63,63 @@ if ($role === 'employer') {
             border-radius: 5px;
             cursor: pointer;
         }
-
         button:hover {
             background-color: #45a049;
         }
     </style>
 </head>
-
 <body>
 
-    <?php include "../components/_nav.php"; ?>
+<h2>Dashboard</h2>
 
-    <h2>Dashboard</h2>
-
-    <?php if ($role === 'freelancer'): ?>
-        <h3>Jobs You've Applied For</h3>
-        <?php
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<div class='job-card'>
+<?php if ($role === 'freelancer'): ?>
+    <h3>Jobs You've Applied For</h3>
+    <?php
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<div class='job-card'>
                     <h4>{$row['title']}</h4>
                     <p>{$row['description']}</p>
                     <p>Status: {$row['status']}</p>
                   </div>";
-            }
-        } else {
-            echo "<p>You have not applied for any jobs yet.</p>";
         }
-        ?>
-    <?php endif; ?>
+    } else {
+        echo "<p>You have not applied for any jobs yet.</p>";
+    }
+    ?>
+<?php endif; ?>
 
-    <?php if ($role === 'employer'): ?>
-        <h3>Your Job Postings</h3>
-        <?php
-        if (mysqli_num_rows($jobs_posted) > 0) {
-            while ($job = mysqli_fetch_assoc($jobs_posted)) {
-                echo "<div class='job-card'>
+<?php if ($role === 'employer'): ?>
+    <h3>Your Job Postings</h3>
+    <?php
+    if (mysqli_num_rows($jobs_posted) > 0) {
+        while ($job = mysqli_fetch_assoc($jobs_posted)) {
+            echo "<div class='job-card'>
                     <h4>{$job['title']}</h4>
                     <p>{$job['description']}</p>
                     <p>Status: {$job['status']}</p>
                     <h5>Applicants:</h5>";
 
-                if (isset($applications[$job['job_id']])) {
-                    while ($applicant = mysqli_fetch_assoc($applications[$job['job_id']])) {
-                        echo "<div class='application-card'>
+            if (isset($applications[$job['job_id']])) {
+                while ($applicant = mysqli_fetch_assoc($applications[$job['job_id']])) {
+                    echo "<div class='application-card'>
                             <p>Username: {$applicant['username']}</p>
                             <p>Status: {$applicant['status']}</p>
                           </div>";
-                    }
-                } else {
-                    echo "<p>No applicants yet.</p>";
                 }
-
-                echo "</div>";
+            } else {
+                echo "<p>No applicants yet.</p>";
             }
-        } else {
-            echo "<p>You have not posted any jobs yet.</p>";
+
+            echo "</div>";
         }
-        ?>
-    <?php endif; ?>
+    } else {
+        echo "<p>You have not posted any jobs yet.</p>";
+    }
+    ?>
+<?php endif; ?>
 
 </body>
-
 </html>
 
 <?php

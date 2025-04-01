@@ -4,30 +4,31 @@ include '../database/db.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
 
-    $sql = "SELECT user_id, password, role FROM users WHERE email = '$email'";
-    $result = $conn->query($sql);
+  $sql = "SELECT user_id, password, role FROM users WHERE email = '$email'";
+  $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if ($password === $row['password']) {
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['role'] = $row['role'];
-            echo "Login successful. Welcome " . $row['role'];
-            header("Location: dashboard.php");
-        } else {
-            echo "Invalid password";
-        }
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    if ($password === $row['password']) {
+      $_SESSION['user_id'] = $row['user_id'];
+      $_SESSION['role'] = $row['role'];
+      echo "Login successful. Welcome " . $row['role'];
+      header("Location: dashboard.php");
     } else {
-        echo "User not found";
+      echo "Invalid password";
     }
+  } else {
+    echo "User not found";
+  }
 }
 $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,7 +42,8 @@ $conn->close();
       box-sizing: border-box;
     }
 
-    body, html {
+    body,
+    html {
       height: 100%;
       font-family: 'Outfit', sans-serif;
       color: white;
@@ -74,11 +76,19 @@ $conn->close();
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    input, button {
+    input,
+    button {
       margin-bottom: 15px;
     }
 
@@ -108,6 +118,7 @@ $conn->close();
     }
   </style>
 </head>
+
 <body>
   <canvas id="background-canvas"></canvas>
 
@@ -172,4 +183,5 @@ $conn->close();
     animateStars();
   </script>
 </body>
+
 </html>
