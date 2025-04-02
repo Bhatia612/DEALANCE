@@ -35,13 +35,35 @@ $result = mysqli_query($conn, $sql);
 <head>
     <title>Available Jobs - Job Portal</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: rgb(1, 1, 70);
+            color: white;
+            padding-top: 100px;
+            height: 100vh;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
         .job-card {
-            border: 1px solid #ccc;
+            border: 0px solid #ccc;
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 16px;
-            background-color: #f9f9f9;
+            background-color:rgb(6, 1, 102);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
+        .job-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }   
         button {
             background-color: #4CAF50;
             color: white;
@@ -56,6 +78,7 @@ $result = mysqli_query($conn, $sql);
     </style>
 </head>
 <body>
+    <?php include "../components/_nav.php"; ?>
     <h2>Available Jobs</h2>
     <?php
     if (mysqli_num_rows($result) > 0) {
