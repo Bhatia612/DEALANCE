@@ -48,14 +48,20 @@ if ($role === 'employer') {
 <head>
     <title>Dashboard - Job Portal</title>
     <style>
+       
+
+
         .job-card,
         .application-card {
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 16px;
             margin-bottom: 16px;
-            background-color: #f9f9f9;
+            background-color:rgb(6, 1, 102);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin: 0 16px 16px 16px
         }
+           
 
         button {
             background-color: #4CAF50;
