@@ -19,7 +19,7 @@ $navLinks = [
   'freelancer' => [
     'Home' => '../pages/homepage.php',
     'Dashboard' => '../pages/admin_dashboard.php',
-    'Find Jobs' => '../pages/browse_jobs.php',
+    'Find Jobs' => '../pages/apply_job.php',
     'Logout' => '../pages/logout.php',
   ]
 ];
@@ -45,6 +45,9 @@ $currentLinks = isset($navLinks[$userRole]) ? $navLinks[$userRole] : [];
   }
 
   .header {
+    /* position: fixed; 
+    border-radius: 0 0 16px 16px;
+    z-index: 999; */
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(20px);
     padding: 15px 40px;
