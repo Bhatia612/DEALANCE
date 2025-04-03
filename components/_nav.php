@@ -19,7 +19,7 @@ $navLinks = [
   'freelancer' => [
     'Home' => '../pages/homepage.php',
     'Dashboard' => '../pages/user_dashboard.php',
-    'Find Jobs' => '../pages/browse_jobs.php',
+    'Find Jobs' => '../pages/find_job.php',
     'Logout' => '../pages/logout.php',
   ]
 ];
