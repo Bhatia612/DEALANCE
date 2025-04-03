@@ -12,13 +12,13 @@ $navLinks = [
   ],
   'employer' => [
     'Home' => '../pages/homepage.php',
-    'Dashboard' => '../pages/admin_dashboard.php',
+    'Dashboard' => '../pages/user_dashboard.php',
     'Post Job' => '../pages/post_job.php',
     'Logout' => '../pages/logout.php',
   ],
   'freelancer' => [
     'Home' => '../pages/homepage.php',
-    'Dashboard' => '../pages/admin_dashboard.php',
+    'Dashboard' => '../pages/user_dashboard.php',
     'Find Jobs' => '../pages/browse_jobs.php',
     'Logout' => '../pages/logout.php',
   ]

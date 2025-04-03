@@ -2,6 +2,7 @@
 session_start();
 include '../database/db.php';
 
+$message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
   $email = $_POST['email'];
@@ -15,13 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     if ($password === $row['password']) {
       $_SESSION['user_id'] = $row['user_id'];
       $_SESSION['role'] = $row['role'];
-      echo "Login successful. Welcome " . $row['role'];
-      header("Location: dashboard.php");
+      $message = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+                    Successfully logged in to Dealance!
+                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                  </div>";
+      echo "<script>
+              setTimeout(function() {
+                window.location.href = 'homepage.php';
+              }, 2000);
+            </script>";
     } else {
-      echo "Invalid password";
+      $message = "<div class='alert alert-danger' role='alert'>Invalid password.</div>";
     }
   } else {
-    echo "User not found";
+    $message = "<div class='alert alert-danger' role='alert'>User not found.</div>";
   }
 }
 $conn->close();
@@ -54,15 +62,6 @@ $conn->close();
       align-items: center;
     }
 
-    #background-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-    }
-
     .glass-card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(15px);
@@ -71,34 +70,7 @@ $conn->close();
       width: 100%;
       max-width: 450px;
       box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 0.8s ease-in-out;
       z-index: 1;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    input,
-    button {
-      margin-bottom: 15px;
-    }
-
-    a {
-      color: #00e5ff;
-      text-decoration: none;
-    }
-
-    a:hover {
-      color: #00bcd4;
     }
 
     button {
@@ -113,18 +85,20 @@ $conn->close();
       background: linear-gradient(135deg, #008ba3, #00e5ff);
     }
 
-    h2 {
-      font-size: 2.2rem;
+    div.alert {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
     }
   </style>
 </head>
 
 <body>
-  <canvas id="background-canvas"></canvas>
-
+  <?php echo $message; ?>
   <div class="glass-card">
     <h2 class="text-center mb-4">Welcome Back!</h2>
-    <form method="post" action="#">
+    <form method="post" action="">
       <div class="mb-3">
         <label for="email" class="form-label">Email Address</label>
         <input type="email" class="form-control" id="email" name="email" required />
@@ -137,51 +111,6 @@ $conn->close();
     </form>
     <p class="text-center mt-3">Don't have an account? <a href="register.php">Register here</a></p>
   </div>
-
-  <script>
-    const canvas = document.getElementById('background-canvas');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const stars = [];
-
-    for (let i = 0; i < 100; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 1.5,
-        velocity: Math.random() * 0.5 + 0.2
-      });
-    }
-
-    function animateStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'white';
-
-      for (let star of stars) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        star.y += star.velocity;
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
-        }
-      }
-
-      requestAnimationFrame(animateStars);
-    }
-
-    animateStars();
-  </script>
 </body>
 
 </html>

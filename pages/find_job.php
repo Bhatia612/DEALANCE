@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'freelancer') {
     die("Access denied. Only freelancers can view and apply for jobs.");
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_job'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['find_job'])) {
     $job_id = $_POST['job_id'];
     $freelancer_id = $_SESSION['user_id'];
 
@@ -63,9 +63,9 @@ $result = mysqli_query($conn, $sql);
             echo "<div class='job-card'>
                     <h3>{$row['title']}</h3>
                     <p>{$row['description']}</p>
-                    <form method='post' action=''>
+                    <form method='post' action='#'>
                         <input type='hidden' name='job_id' value='{$row['job_id']}'>
-                        <button type='submit' name='apply_job'>Apply</button>
+                        <button type='submit' name='find_job'>Apply</button>
                     </form>
                   </div>";
         }
