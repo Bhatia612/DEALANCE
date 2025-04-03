@@ -32,5 +32,14 @@ CREATE TABLE applications (
     FOREIGN KEY (freelancer_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE admin_requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    reason TEXT NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
 INSERT INTO users (username, email, password, role)
 VALUES ('admin', 'admin@example.com', 'hashed_password_here', 'admin');

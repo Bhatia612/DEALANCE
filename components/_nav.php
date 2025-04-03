@@ -6,20 +6,23 @@ $navLinks = [
   'admin' => [
     'Home' => '../pages/homepage.php',
     'Dashboard' => '../pages/admin_dashboard.php',
-    'Manage Users' => '../manage_users.php',
+    'Manage Users' => './manage_users.php',
     'Manage Applications' => '../pages/manage_application.php',
+    'Profile' => '../pages/profile.php',
     'Logout' => '../pages/logout.php',
   ],
   'employer' => [
     'Home' => '../pages/homepage.php',
-    'Dashboard' => '../pages/admin_dashboard.php',
+    'Dashboard' => '../pages/dashboard.php',
     'Post Job' => '../pages/post_job.php',
+    'Profile' => '../pages/profile.php',
     'Logout' => '../pages/logout.php',
   ],
   'freelancer' => [
     'Home' => '../pages/homepage.php',
-    'Dashboard' => '../pages/admin_dashboard.php',
+    'Dashboard' => '../pages/dashboard.php',
     'Find Jobs' => '../pages/apply_job.php',
+    'Profile' => '../pages/profile.php',
     'Logout' => '../pages/logout.php',
   ]
 ];
