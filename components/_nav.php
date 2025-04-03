@@ -13,25 +13,16 @@ $navLinks = [
   ],
   'employer' => [
     'Home' => '../pages/homepage.php',
-<<<<<<< HEAD
     'Dashboard' => '../pages/user_dashboard.php',
-=======
-    'Dashboard' => '../pages/dashboard.php',
->>>>>>> e71189aabd576673085f23c082bf6dc4c02b7220
     'Post Job' => '../pages/post_job.php',
     'Profile' => '../pages/profile.php',
     'Logout' => '../pages/logout.php',
   ],
   'freelancer' => [
     'Home' => '../pages/homepage.php',
-<<<<<<< HEAD
     'Dashboard' => '../pages/user_dashboard.php',
     'Find Jobs' => '../pages/find_job.php',
-=======
-    'Dashboard' => '../pages/dashboard.php',
-    'Find Jobs' => '../pages/apply_job.php',
     'Profile' => '../pages/profile.php',
->>>>>>> e71189aabd576673085f23c082bf6dc4c02b7220
     'Logout' => '../pages/logout.php',
   ]
 ];

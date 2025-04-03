@@ -36,6 +36,7 @@ $user = $result->fetch_assoc();
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>User Profile - Job Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
@@ -45,13 +46,16 @@ $user = $result->fetch_assoc();
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Outfit', sans-serif;
             background: rgb(1, 1, 70);
             color: white;
             padding-top: 100px;
         }
-        html, body {
+
+        html,
+        body {
             margin: 0;
             padding: 0;
         }
@@ -62,7 +66,7 @@ $user = $result->fetch_assoc();
             background-color: #1a1a60;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
             text-align: center;
         }
 
@@ -106,37 +110,40 @@ $user = $result->fetch_assoc();
         }
     </style>
 </head>
+
 <body>
 
-<?php include "../components/_nav.php"; ?>
+    <?php include "../components/_nav.php"; ?>
 
-<div class="profile-container">
-    <h2>My Profile</h2>
+    <div class="profile-container">
+        <h2>My Profile</h2>
 
-    <div class="profile-info">
-        <p><strong>Username:</strong> <?= htmlspecialchars($user['username']) ?></p>
-        <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
-        <p><strong>Role:</strong> <?= htmlspecialchars($user['role']) ?></p>
-        <p><strong>Joined:</strong> <?= htmlspecialchars($user['created_at']) ?></p>
+        <div class="profile-info">
+            <p><strong>Username:</strong> <?= htmlspecialchars($user['username']) ?></p>
+            <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
+            <p><strong>Role:</strong> <?= htmlspecialchars($user['role']) ?></p>
+            <p><strong>Joined:</strong> <?= htmlspecialchars($user['created_at']) ?></p>
+        </div>
+
+        <div class="button-group">
+            <button onclick="location.href='change_password.php'">Change Password</button>
+        </div>
+
+        <?php if ($user['role'] !== 'admin'): ?>
+            <form method="post">
+                <h3 style="margin-top: 20px;">Apply for Admin</h3>
+                <textarea name="reason" rows="4" placeholder="Why do you want to become an admin?" required></textarea>
+
+                <button type="submit" name="apply_admin">Submit Application</button>
+            </form>
+        <?php endif; ?>
+        <?php if (!empty($applicationMessage)): ?>
+            <p style="margin-top:10px; color:lightgreen;"><?= $applicationMessage ?></p>
+        <?php endif; ?>
+
+
     </div>
-
-    <div class="button-group">
-        <button onclick="location.href='change_password.php'">Change Password</button>
-    </div>
-
-    <?php if ($user['role'] !== 'admin'): ?>
-    <form method="post">
-        <h3 style="margin-top: 20px;">Apply for Admin</h3>
-        <textarea name="reason" rows="4" placeholder="Why do you want to become an admin?" required></textarea>
-        <button type="submit" name="apply_admin">Submit Application</button>
-    </form>
-<?php endif; ?>
-<?php if (!empty($applicationMessage)): ?>
-    <p style="margin-top:10px; color:lightgreen;"><?= $applicationMessage ?></p>
-<?php endif; ?>
-
-
-</div>
 
 </body>
+
 </html>
