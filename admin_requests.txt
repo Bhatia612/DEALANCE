@@ -1,0 +1,3 @@
+||hello|approved
+11|||Hello!|rejected
+2|||I want to be stronger!!!|pending
