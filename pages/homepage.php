@@ -24,8 +24,9 @@ if (!isset($_SESSION['user_id'])) {
         <div class="text-center">
             <h1 class="mb-4">Welcome to Your Dashboard</h1>
             <div class="d-flex justify-content-center gap-3">
-                <a href="./dashboard.php" class="btn btn-primary btn-lg">See Dashboard</a>
-                <a href="./find_job.php" class="btn btn-success btn-lg">Find Jobs</a>
+                <a href="dashboard.php" class="btn btn-primary btn-lg">See Dashboard</a>
+                <a href="apply_job.php" class="btn btn-success btn-lg">Find Jobs</a>
+                <a href="profile.php" class="btn btn-info btn-lg">Go to Profile</a>
             </div>
         </div>
     </div>
