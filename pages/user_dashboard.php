@@ -9,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Get user information
 $query = "SELECT username, email, role FROM users WHERE user_id = $user_id";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
@@ -22,7 +21,22 @@ $application_count = 0;
 $pending_count = 0;
 $rejected_count = 0;
 
-// For Freelancer role
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['withdraw'])) {
+    $job_id = intval($_POST['job_id']);
+    $delete_sql = "DELETE FROM applications WHERE job_id = $job_id AND freelancer_id = $user_id";
+    mysqli_query($conn, $delete_sql);
+    header("Location: user_dashboard.php");
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['close_job'])) {
+    $job_id = intval($_POST['job_id']);
+    $delete_job_sql = "DELETE FROM jobs WHERE job_id = $job_id AND employer_id = $user_id";
+    mysqli_query($conn, $delete_job_sql);
+    header("Location: user_dashboard.php");
+    exit();
+}
+
 if ($role === 'freelancer') {
     $sql = "SELECT j.job_id, j.title, j.description, a.status, u.username AS employer_name
             FROM jobs j 
@@ -41,7 +55,6 @@ if ($role === 'freelancer') {
     }
 }
 
-// For Employer role
 if ($role === 'employer') {
     $sql = "SELECT job_id, title, description, status FROM jobs WHERE employer_id = $user_id";
     $jobs_posted = mysqli_query($conn, $sql);
@@ -105,6 +118,10 @@ if ($role === 'employer') {
                             <p>{$row['description']}</p>
                             <p><strong>Employer:</strong> {$row['employer_name']}</p>
                             <p><strong>Status:</strong> {$row['status']}</p>
+                            <form method='POST' style='display:inline;'>
+                                <input type='hidden' name='job_id' value='{$row['job_id']}' />
+                                <button type='submit' name='withdraw' class='btn btn-danger btn-sm'>Withdraw Application</button>
+                            </form>
                           </div>";
                     }
                 } else {
@@ -122,6 +139,10 @@ if ($role === 'employer') {
                             <h4>{$job['title']}</h4>
                             <p>{$job['description']}</p>
                             <p>Status: {$job['status']}</p>
+                            <form method='POST' style='display:inline;'>
+                                <input type='hidden' name='job_id' value='{$job['job_id']}' />
+                                <button type='submit' name='close_job' class='btn btn-danger btn-sm'>Close Job Posting</button>
+                            </form>
                         </div>";
                     }
                 } else {
@@ -131,9 +152,7 @@ if ($role === 'employer') {
             <?php endif; ?>
         </div>
     </div>
-
 </body>
-
 </html>
 
 <?php

@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 
 include "../database/db.php";
 
-
 if (isset($_POST['delete_user'])) {
     $userId = intval($_POST['user_id']);
     if ($userId !== $_SESSION['user_id']) {
@@ -17,7 +16,6 @@ if (isset($_POST['delete_user'])) {
     }
 }
 
-
 if (isset($_POST['update_role'])) {
     $userId = intval($_POST['user_id']);
     $newRole = $_POST['new_role'];
@@ -25,7 +23,6 @@ if (isset($_POST['update_role'])) {
     $stmt->bind_param("si", $newRole, $userId);
     $stmt->execute();
 }
-
 
 $result = $conn->query("SELECT user_id, username, email, role, created_at FROM users");
 ?>
@@ -76,21 +73,21 @@ $result = $conn->query("SELECT user_id, username, email, role, created_at FROM u
         }
 
         .btn-delete {
-            background-color: #ff4d4d;
+            background-color: #ff4d4d !important;
             color: white;
         }
 
         .btn-delete:hover {
-            background-color: #e60000;
+            background-color: #e60000 !important;
         }
 
         .btn-update {
-            background-color: #00bcd4;
+            background-color: #4CAF50 !important;
             color: white;
         }
 
         .btn-update:hover {
-            background-color: #0097a7;
+            background-color: #388E3C !important;
         }
 
         select {

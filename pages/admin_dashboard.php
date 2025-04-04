@@ -46,29 +46,40 @@ $applicationCount = $conn->query("SELECT COUNT(*) as total FROM applications")->
       gap: 20px;
     }
     .card {
-      background-color: #1a1a60;
+      background: linear-gradient(to bottom, #121253, #1e1e78);
       padding: 20px;
       border-radius: 12px;
       text-align: center;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     }
     .card h2 {
-      font-size: 48px;
+      font-size: 50px;
       margin-bottom: 10px;
-      color: #00e5ff;
+      color: #00f2fe;
     }
     .card p {
       font-size: 18px;
+      color: #d1d1ff;
     }
     a.button {
       display: inline-block;
       margin-top: 15px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       background: linear-gradient(to right, #00f2fe, #4facfe);
       color: white;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
+      transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    }
+    a.button:hover {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      transform: scale(1.05);
     }
   </style>
 </head>

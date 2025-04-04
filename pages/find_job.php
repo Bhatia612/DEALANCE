@@ -141,7 +141,7 @@ if (isset($_POST['apply_job'])) {
                         <p><strong>Posted on:</strong> <?= $row['created_at'] ?></p>
                         <form method='post'>
                             <input type='hidden' name='job_id' value='<?= $row['job_id'] ?>'>
-                            <button type='submit' name='apply_job'>Apply</button>
+                            <button class="rounded" type='submit' name='apply_job'>Apply</button>
                         </form>
                     </div>
                 <?php endwhile; ?>

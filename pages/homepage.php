@@ -22,9 +22,9 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="text-center">
-            <h1 class="mb-4">Welcome to Your Dashboard</h1>
+            <p class="lead mb-4">Your journey to finding exciting job opportunities starts right here. Our platform is designed to connect freelancers with top employers, offering a seamless and efficient experience. Whether you're looking for a quick gig or a long-term career, our user-friendly interface will guide you every step of the way.</p>
+            <p class="text-muted mb-4">You're now part of a community that's dedicated to making the job search process easy and effective. Explore the wide variety of opportunities tailored to your skills, and start making the connections that will help you thrive.</p>
             <div class="d-flex justify-content-center gap-3">
-                <a href="dashboard.php" class="btn btn-primary btn-lg">See Dashboard</a>
                 <a href="find_job.php" class="btn btn-success btn-lg">Find Jobs</a>
                 <a href="profile.php" class="btn btn-info btn-lg">Go to Profile</a>
             </div>
