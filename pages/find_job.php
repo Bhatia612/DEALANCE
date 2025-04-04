@@ -85,7 +85,7 @@ $result = $conn->query($sql);
                         <p> - <?= $row['description'] ?></p>
                         <p><strong>Employer:</strong> <?= $row['employer_name'] ?> (<?= $row['employer_email'] ?>)</p>
                         <p><strong>Posted on:</strong> <?= $row['created_at'] ?></p>
-                        <form method='post' action='apply_job.php'>
+                        <form method='post'>
                             <input type='hidden' name='job_id' value='<?= $row['job_id'] ?>'>
                             <button class = "rounded" type='submit' name='apply_job'>Apply</button>
                         </form>
