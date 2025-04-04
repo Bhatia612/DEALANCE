@@ -1,5 +1,4 @@
 <?php
-
 include '../database/db.php';
 
 session_start();
@@ -10,12 +9,10 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-$query = "SELECT username, email, role FROM users WHERE user_id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->fetch_assoc();
+// Get user information
+$query = "SELECT username, email, role FROM users WHERE user_id = $user_id";
+$result = mysqli_query($conn, $query);
+$user = mysqli_fetch_assoc($result);
 
 $username = $user['username'];
 $email = $user['email'];
@@ -25,17 +22,16 @@ $application_count = 0;
 $pending_count = 0;
 $rejected_count = 0;
 
+// For Freelancer role
 if ($role === 'freelancer') {
-    $sql = "SELECT j.job_id, j.title, j.description, a.status 
+    $sql = "SELECT j.job_id, j.title, j.description, a.status, u.username AS employer_name
             FROM jobs j 
             JOIN applications a ON j.job_id = a.job_id 
-            WHERE a.freelancer_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+            JOIN users u ON j.employer_id = u.user_id
+            WHERE a.freelancer_id = $user_id";
+    $result = mysqli_query($conn, $sql);
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $application_count++;
         if ($row['status'] === 'pending') {
             $pending_count++;
@@ -45,28 +41,10 @@ if ($role === 'freelancer') {
     }
 }
 
+// For Employer role
 if ($role === 'employer') {
-    $sql = "SELECT job_id, title, description, status 
-            FROM jobs 
-            WHERE employer_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $jobs_posted = $stmt->get_result();
-
-    $applications = [];
-    while ($job = $jobs_posted->fetch_assoc()) {
-        $job_id = $job['job_id'];
-        $sql = "SELECT u.username, a.status 
-                FROM applications a 
-                JOIN users u ON a.freelancer_id = u.user_id 
-                WHERE a.job_id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $job_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $applications[$job_id] = $result;
-    }
+    $sql = "SELECT job_id, title, description, status FROM jobs WHERE employer_id = $user_id";
+    $jobs_posted = mysqli_query($conn, $sql);
 }
 ?>
 
@@ -95,6 +73,8 @@ if ($role === 'employer') {
             padding: 16px;
             border-radius: 8px;
             margin-bottom: 16px;
+            display: inline-block;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -119,11 +99,12 @@ if ($role === 'employer') {
                 <?php
                 if ($application_count > 0) {
                     $result->data_seek(0);
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         echo "<div class='job-card'>
                             <h4>{$row['title']}</h4>
                             <p>{$row['description']}</p>
-                            <p>Status: {$row['status']}</p>
+                            <p><strong>Employer:</strong> {$row['employer_name']}</p>
+                            <p><strong>Status:</strong> {$row['status']}</p>
                           </div>";
                     }
                 } else {
@@ -135,25 +116,13 @@ if ($role === 'employer') {
             <?php if ($role === 'employer'): ?>
                 <h3>Your Job Postings</h3>
                 <?php
-                if ($jobs_posted->num_rows > 0) {
-                    $jobs_posted->data_seek(0);
-                    while ($job = $jobs_posted->fetch_assoc()) {
+                if (mysqli_num_rows($jobs_posted) > 0) {
+                    while ($job = mysqli_fetch_assoc($jobs_posted)) {
                         echo "<div class='job-card'>
                             <h4>{$job['title']}</h4>
                             <p>{$job['description']}</p>
                             <p>Status: {$job['status']}</p>
-                            <h5>Applicants:</h5>";
-                        if (isset($applications[$job['job_id']])) {
-                            while ($applicant = $applications[$job['job_id']]->fetch_assoc()) {
-                                echo "<div class='job-card'>
-                                    <p>Username: {$applicant['username']}</p>
-                                    <p>Status: {$applicant['status']}</p>
-                                  </div>";
-                            }
-                        } else {
-                            echo "<p>No applicants yet.</p>";
-                        }
-                        echo "</div>";
+                        </div>";
                     }
                 } else {
                     echo "<p>You have not posted any jobs yet.</p>";
@@ -168,6 +137,5 @@ if ($role === 'employer') {
 </html>
 
 <?php
-$stmt->close();
-$conn->close();
+mysqli_close($conn);
 ?>
